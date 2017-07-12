@@ -6,6 +6,12 @@ FROM ubuntu:16.10
 # --- Install required tools
 
 RUN apt-get update -qq
+RUN apt-get install -y dirmngr apt-transport-https
+
+RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+
+RUN apt-get update -qq
 
 # Base (non android specific) tools
 # -> should be added to bitriseio/docker-bitrise-base
@@ -15,6 +21,7 @@ RUN apt-get update -qq
 #RUN apt-get update -qq
 #RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-8-jdk libc6:i386 libstdc++6:i386 libgcc1:i386 libncurses5:i386 libz1:i386
 RUN apt-get install -y openjdk-8-jdk wget expect
+RUN apt-get install -y sbt
 
 # ------------------------------------------------------
 # --- Download Android SDK tools into $ANDROID_SDK_HOME
