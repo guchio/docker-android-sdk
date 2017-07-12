@@ -24,6 +24,16 @@ RUN apt-get install -y openjdk-8-jdk wget expect
 RUN apt-get install -y sbt
 
 # ------------------------------------------------------
+# --- Build & Install Thrift
+RUN apt-get install -y libboost-dev libboost-test-dev libboost-program-options-dev libboost-filesystem-dev libboost-thread-dev libevent-dev automake libtool flex bison pkg-config g++ libssl-dev
+RUN wget http://ftp.jaist.ac.jp/pub/apache/thrift/0.10.0/thrift-0.10.0.tar.gz && \
+    tar zxf thrift-0.10.0.tar.gz && \
+    cd thrift-0.10.0 && \
+    ./configure && \
+    make && \
+    make install
+
+# ------------------------------------------------------
 # --- Download Android SDK tools into $ANDROID_SDK_HOME
 
 RUN useradd -u 1000 -M -s /bin/bash android
